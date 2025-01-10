@@ -18,29 +18,29 @@
         <th scope="col">Date</th>
       </tr>
   </thead>
-<tbody>
-  @foreach($donations as $donation)
-    <tr>
-      <td>
-        {{$donation->donator_name}}
-      </td>
-      <td>
-        {{$donation->email}}
-      </td>
-      <td>
-        {{$donation->amount}}
-      </td>
-      <td>
-        {{$donation->message}}
-      </td>
-      <td>
-        {{$donation->date}}
-      </td>
-    </tr>
-  @endforeach
+    <tbody>
+        @foreach($donations as $donation)
+        <tr>
+            <td>
+              {{$donation->donator_name}}
+            </td>
+            <td>
+              {{$donation->email}}
+            </td>
+            <td>
+              {{$donation->amount}}
+            </td>
+            <td>
+              {{$donation->message}}
+            </td>
+            <td>
+              {{$donation->date}}
+            </td>
+          </tr>
+        @endforeach
 </table>
-<div>
-  {{$donations->links('pagination::bootstrap-5')}}
-</div>
+      <div>
+        {{$donations->links('pagination::bootstrap-5')}}
+      </div>
 </body>
 </html>
