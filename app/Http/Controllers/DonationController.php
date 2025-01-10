@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Donation;
 
 class DonationController extends Controller
 {
     public function index(): View{
-        // create new comment for create new branch and commit
-        return view('dashboard');
+        
+        $donations = Donation::paginate(10);
+
+        return view('dashboard', compact("donations"));
     }
 }
