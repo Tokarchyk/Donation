@@ -1,0 +1,31 @@
+name: Code Sniffing
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        php: [ 8.2 ]
+    name: php:${{ matrix.php }}
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        # uncomment when running locally `act -j phpcs`
+        # env:
+        # runner: self-hosted
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: bcmath, gd, gettext, intl, mcrypt, mongodb, mysqli, opcache, pcntl, pdo_mysql, redis, zip
+          ini-values: post_max_size=256M, max_execution_time=180
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{secrets.NOVA_USERNAME}}" "${{secrets.NOVA_PASSWORD}}"
+          composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Detecting PHP Code Standards Violations
+        run: composer run-script phpcs
