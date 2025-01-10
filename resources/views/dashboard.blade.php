@@ -21,9 +21,9 @@
 <tbody>
   @foreach($donations as $donation)
   <tr>
-    <th scope="row">
+    <td>
       {{$donation->donator_name}}
-    </th>
+    </td>
       <td>
         {{$donation->email}}
       </td>
