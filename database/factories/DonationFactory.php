@@ -23,8 +23,6 @@ class DonationFactory extends Factory
                 'amount' => fake()->randomNumber(4, false),
                 'message' => fake()->text(),
                 'date' => fake()->dateTime(),
-            
-            
         ];
     }
 }

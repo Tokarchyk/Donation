@@ -10,20 +10,20 @@
 <body>
 <table class="table table-striped">
   <thead>
-  <tr>
-    <th scope="col">Donator Name</th>
-    <th scope="col">Email</th>
-    <th scope="col">Amount</th>
-    <th scope="col">Message</th>
-    <th scope="col">Date</th>
-  </tr>
-</thead>
+      <tr>
+        <th scope="col">Donator Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Message</th>
+        <th scope="col">Date</th>
+      </tr>
+  </thead>
 <tbody>
   @foreach($donations as $donation)
-  <tr>
-    <td>
-      {{$donation->donator_name}}
-    </td>
+    <tr>
+      <td>
+        {{$donation->donator_name}}
+      </td>
       <td>
         {{$donation->email}}
       </td>
@@ -36,7 +36,7 @@
       <td>
         {{$donation->date}}
       </td>
-  </tr>
+    </tr>
   @endforeach
 </table>
 <div>
