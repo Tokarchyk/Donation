@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 
 Route::get('/donation', [DonationController::class, 'index']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

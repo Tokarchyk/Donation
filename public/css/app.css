@@ -1,0 +1,9 @@
+.bg-color-card {
+    background-color: burlywood;
+    color: white;
+    text-align: center;
+    padding: 2px 0px 2px 0px;
+    margin: 2px 0px;
+    width: auto;
+    height: 100px;
+}
