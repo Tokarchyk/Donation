@@ -18,13 +18,12 @@ class Widget extends Component
     public function __construct(
         $title,
         $amount,
-        $email = null)
-    {
+        $email = null
+    ) {
         $this->title = $title;
         $this->amount = $amount;
         $this->email = $email;
     }
-
     /**
      * Get the view / contents that represent the component.
      */
