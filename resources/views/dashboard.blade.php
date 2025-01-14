@@ -15,68 +15,47 @@
     <h2>Donation Statistics</h2>
 </div>
 
-<div class="col-sm-6 col-md-4">
-    <div class="bg-color-card">
-        <div class="card-header">Top Donator</div>
-        <div class="card-body">
-            <h3>{{ $topDonation->amount }}</h3>
-            <h6>{{ $topDonation->email }}</h6>
-        </div>
-    </div>
-</div>
-
-<div class="col-sm-6 col-md-4">
-    <div class="bg-color-card">
-        <div class="card-header">Last Month Amount</div>
-        <div class="card-body">
-          <h3>{{ $totalSum }}</h3>
-        </div>
-      </div>
-</div>
-
-<div class="col-sm-6 col-md-4">
-    <div class="bg-color-card">
-      <div class="card-header">All Time Amount</div>
-      <div class="card-body">
-        <h3>{{ $totalAmountDonation }}</h3>
-      </div>
-    </div>
-  </div>
-</div>
+@foreach($values as $value)
+    <x-widget 
+        title="{{ $value['title'] }}" 
+        amount="{{ $value['amount'] }}" 
+        email="{{ $value['email'] }}"
+    />
+@endforeach
 
 <table class="table table-striped">
-  <thead>
-      <tr>
-        <th scope="col">Donator Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Message</th>
-        <th scope="col">Date</th>
-      </tr>
-  </thead>
-    <tbody>
-        @foreach($donations as $donation)
+    <thead>
         <tr>
-            <td>
-              {{$donation->donator_name}}
-            </td>
-            <td>
-              {{$donation->email}}
-            </td>
-            <td>
-              {{$donation->amount}}
-            </td>
-            <td>
-              {{$donation->message}}
-            </td>
-            <td>
-              {{$donation->date}}
-            </td>
-          </tr>
+            <th scope="col">Donator Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Message</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+        <tbody>
+        @foreach($donations as $donation)
+            <tr>
+                <td>
+                    {{$donation->donator_name}}
+                </td>
+                <td>
+                    {{$donation->email}}
+                </td>
+                <td>
+                    {{$donation->amount}}
+                </td>
+                <td>
+                    {{$donation->message}}
+                </td>
+                <td>
+                    {{$donation->date}}
+                </td>
+            </tr>
         @endforeach
 </table>
-      <div>
-        {{$donations->links('pagination::bootstrap-5')}}
-      </div>
+<div>            
+    {{$donations->links('pagination::bootstrap-5')}}
+</div>
 </body>
 </html>
