@@ -26,11 +26,32 @@ class DonationController extends Controller
         )->get()
         ->sum('amount');
 
+        $values = [
+            [
+                'title' => 'Top Donator',
+                'amount' => $topDonation['amount'],
+                'email' => $topDonation['email'],
+            ],
+
+            [
+                'title' => 'Last Month Amount',
+                'amount' => $lastMonthAmount,
+                'email' => ''
+            ],
+
+            [
+                'title' => 'All Time Amount',
+                'amount' => $totalAmountDonation,
+                'email' => ''
+            ]
+        ];
+
         return view('dashboard')->with([
             "donations" => $donations,
             "topDonation" => $topDonation,
             "totalAmountDonation" => $totalAmountDonation,
-            "totalSum" => $lastMonthAmount
+            "totalSum" => $lastMonthAmount,
+            "values" => $values,
         ]);
     }
 }
