@@ -29,9 +29,9 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var data = google.visualization.arrayToDataTable(@json($chartData));
+        let data = google.visualization.arrayToDataTable(@json($chartData));
             
-        var options = {
+        let options = {
             height: 500,
             width: 1200,
             title: 'Donation Statistics',
@@ -39,12 +39,12 @@
             legend: { position: 'none' }
         };
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        const chart = new google.visualization.LineChart(document.getElementById('curve-chart'));
 
         chart.draw(data, options);
     }
     </script>
-    <div id="curve_chart" style="width: auto; height: auto"></div>
+    <div id="curve-chart" style="width: auto; height: auto"></div>
 
 <table class="table table-striped">
     <thead>
