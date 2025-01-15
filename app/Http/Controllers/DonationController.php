@@ -13,25 +13,25 @@ class DonationController extends Controller
     {
         $donations = Donation::paginate(10);
 
-    $resultsDate = Donation::all()
-    ->sortBy('date');
+        $resultsDate = Donation::all()
+        ->sortBy('date');
 
-    $chartData = $resultsDate
-    ->groupBy(function ($result, $key) {
-        return \Carbon\Carbon::parse($result->date)->format('y-M-d');
-    })
-    ->map(function ($result) {
-        return ($result->sum('amount'));
-    });
+        $chartData = $resultsDate
+        ->groupBy(function ($result, $key) {
+            return \Carbon\Carbon::parse($result->date)->format('y-M-d');
+        })
+        ->map(function ($result) {
+            return ($result->sum('amount'));
+        });
 
-    foreach ($chartData as $date => $totalAmount) {
-        $newArray[] = [$date, $totalAmount];
-    }
+        foreach ($chartData as $date => $totalAmount) {
+            $newArray[] = [$date, $totalAmount];
+        }
 
-    $chartDataAmount = [
-        ['Year', 'Amount'],
-        ...$newArray,
-    ];
+        $chartDataAmount = [
+            ['Year', 'Amount'],
+            ...$newArray,
+        ];
 
         $topDonation = Donation::orderByDesc('amount')->first();
 
