@@ -24,7 +24,7 @@ class DonationController extends Controller
             return ($result->sum('amount'));
         });
 
-        foreach ($chartData as $date => $totalAmount){
+        foreach ($chartData as $date => $totalAmount) {
             $newArray[] = [$date, $totalAmount];
         }
 
