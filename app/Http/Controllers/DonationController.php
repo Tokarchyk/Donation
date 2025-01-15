@@ -13,6 +13,26 @@ class DonationController extends Controller
     {
         $donations = Donation::paginate(10);
 
+        $resultsDate = Donation::all()
+        ->sortBy('date');
+
+        $chartData = $resultsDate
+        ->groupBy(function ($result, $key) {
+            return \Carbon\Carbon::parse($result->date)->format('y-M-d');
+        })
+        ->map(function ($result) {
+            return ($result->sum('amount'));
+        });
+
+        foreach ($chartData as $date => $totalAmount){
+            $newArray[] = [$date, $totalAmount];
+        }
+
+        $chartDataAmount = [
+            ['Year', 'Amount'],
+            ...$newArray,
+        ];
+
         $topDonation = Donation::orderByDesc('amount')->first();
 
         $totalAmountDonation = Donation::sum('amount');
@@ -32,18 +52,16 @@ class DonationController extends Controller
                 'amount' => $topDonation['amount'],
                 'email' => $topDonation['email'],
             ],
-
             [
                 'title' => 'Last Month Amount',
                 'amount' => $lastMonthAmount,
                 'email' => ''
             ],
-
             [
                 'title' => 'All Time Amount',
                 'amount' => $totalAmountDonation,
                 'email' => ''
-            ]
+            ],
         ];
 
         return view('dashboard')->with([
@@ -52,6 +70,7 @@ class DonationController extends Controller
             "totalAmountDonation" => $totalAmountDonation,
             "totalSum" => $lastMonthAmount,
             "values" => $values,
+            "chartData" => $chartDataAmount,
         ]);
     }
 }
