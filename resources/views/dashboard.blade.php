@@ -43,7 +43,7 @@
 
         chart.draw(data, options);
     }
-    </script>
+</script>
     <div id="curve-chart" style="width: auto; height: auto"></div>
 
 <table class="table table-striped">

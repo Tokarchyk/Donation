@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\DonationRequest;
 use Illuminate\View\View;
 use App\Models\Donation;
 use Carbon\Carbon;
@@ -72,5 +72,22 @@ class DonationController extends Controller
             "values" => $values,
             "chartData" => $chartDataAmount,
         ]);
+    }
+
+    public function show(): View
+    {
+        return view('donation-form');
+    }
+
+    public function store(DonationRequest $request)
+    {
+        $donation = new Donation();
+        $donation->donator_name = $request->input('donator_name');
+        $donation->email = $request->input('email');
+        $donation->amount = $request->input('amount');
+        $donation->message = $request->input('message');
+        $donation->date = Carbon::now()->format('Y-m-d');
+        $donation->save();
+        return redirect('/donation');
     }
 }

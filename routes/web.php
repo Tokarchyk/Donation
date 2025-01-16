@@ -19,7 +19,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/donation', [DonationController::class, 'index']);
+Route::get('/donation', [DonationController::class, 'index'])->name('donation.index');
+Route::get('/donation-form', [DonationController::class, 'show'])->name('donation-form.show');
+Route::post('/store', [DonationController::class, 'store'])->name('donation.store');
 
 Auth::routes();
 
