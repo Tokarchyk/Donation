@@ -77,6 +77,7 @@ class DonationController extends Controller
     public function show(): View
     {
         return view('donation-form');
+        dd();
     }
 
     public function store(DonationRequest $request)
