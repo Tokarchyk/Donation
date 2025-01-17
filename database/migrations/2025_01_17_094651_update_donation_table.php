@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donations', function (Blueprint $table) {
-
             $table->float('amount', 8, 2)->change();
         });
     }
@@ -23,7 +22,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('donations', function (Blueprint $table) {
-
             $table->float('amount', 8, 2)->change();
         });
     }
