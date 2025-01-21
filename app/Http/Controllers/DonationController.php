@@ -6,12 +6,41 @@ use App\Http\Requests\DonationRequest;
 use Illuminate\View\View;
 use App\Models\Donation;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
-    public function index(): View
+    public function store(DonationRequest $request)
     {
-        $donations = Donation::paginate(10);
+        $donation = new Donation();
+        $donation->donator_name = $request->input('donator_name');
+        $donation->email = $request->input('email');
+        $donation->amount = $request->input('amount');
+        $donation->message = $request->input('message');
+        $donation->date = Carbon::now()->format('Y-m-d');
+        $donation->save();
+        return redirect('/donation');
+    }
+
+    public function index(Request $request): View
+    {
+        $sortedDirection = $request->input('sort', 'asc');
+        if (! in_array($sortedDirection, ['asc', 'desc'])) {
+            $sortedDirection = 'desc';
+        }
+
+        $sortedColumn = $request->input('column', 'date');
+        if (! in_array($sortedColumn, ['id', 'donator_name', 'email', 'amount', 'message', 'date'])) {
+            $sortedColumn = 'donator_name';
+        }
+
+        $donations = Donation::where(
+            'donator_name',
+            'LIKE',
+            '%' . $request->input('search') . '%'
+        )
+        ->orderBy($sortedColumn, $sortedDirection)
+        ->paginate(10);
 
         $resultsDate = Donation::all()
         ->sortBy('date');
@@ -71,23 +100,8 @@ class DonationController extends Controller
             "totalSum" => $lastMonthAmount,
             "values" => $values,
             "chartData" => $chartDataAmount,
+            "sortDirection" => $sortedDirection,
+            "sortColumn" => $sortedColumn,
         ]);
-    }
-
-    public function show(): View
-    {
-        return view('donation-form');
-    }
-
-    public function store(DonationRequest $request)
-    {
-        $donation = new Donation();
-        $donation->donator_name = $request->input('donator_name');
-        $donation->email = $request->input('email');
-        $donation->amount = $request->input('amount');
-        $donation->message = $request->input('message');
-        $donation->date = Carbon::now()->format('Y-m-d');
-        $donation->save();
-        return redirect('/donation');
     }
 }

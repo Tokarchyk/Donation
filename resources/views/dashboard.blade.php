@@ -6,20 +6,33 @@
     <title>Document</title>
 </head>
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<body>
+<body class="container">
 <div class="row">
 
 <div class="col-12 text-center">
     <h2>Donation Statistics</h2>
 </div>
+<div class="card-body">
+    <div class="row">
+        <div class="col-md-7">
+            <form action="" method="GET">
+                <div class="input-group mb-3">
+                    <input type="text" name="search" value=""  class="form-control" placeholder="Search here">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form> 
+        </div>
+    </div>
+</div>
 
 @foreach($values as $value)
     <x-widget 
-        title="{{ $value['title'] }}" 
-        amount="{{ $value['amount'] }}" 
+        title="{{ $value['title'] }}"
+        amount="{{ $value['amount'] }}"
         email="{{ $value['email'] }}"
     />
 @endforeach
@@ -97,15 +110,14 @@
 </script>
     <div id="curve-chart" style="width: auto; height: auto"></div>
     
-
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Donator Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Message</th>
-            <th scope="col">Date</th>
+            <th scope="col">Donator Name<x-sort-direction sort="{{ $sortDirection }}" column="donator_name"/></th>
+            <th scope="col">Email<x-sort-direction sort="{{ $sortDirection }}" column="email"/></th>
+            <th scope="col">Amount<x-sort-direction sort="{{ $sortDirection }}" column="amount"/></th>
+            <th scope="col">Message
+            <th scope="col">Date<x-sort-direction sort="{{ $sortDirection }}" column="date"/></th>
         </tr>
     </thead>
         <tbody>
