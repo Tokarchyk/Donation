@@ -18,12 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('/donation', [DonationController::class, 'index'])->name('donation.index');
-// Route::get('/donation-form', [DonationController::class, 'show'])->name('donation-form.show');
 Route::post('/store', [DonationController::class, 'store'])->name('donation.store');
-// Route::get('/donation', [DonationController::class, 'search'])->name('donation.search');
-
 
 Auth::routes();
 

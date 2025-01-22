@@ -8,8 +8,8 @@ use Illuminate\View\Component;
 
 class SortDirection extends Component
 {
-    public $sortDirection;
-    public $sortColumn;
+    public string $sortDirection;
+    public string $sortColumn;
 
     public function __construct($sort, $column)
     {

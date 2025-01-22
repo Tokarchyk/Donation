@@ -12,13 +12,13 @@ class DonationController extends Controller
 {
     public function store(DonationRequest $request)
     {
-        $donation = new Donation();
-        $donation->donator_name = $request->input('donator_name');
-        $donation->email = $request->input('email');
-        $donation->amount = $request->input('amount');
-        $donation->message = $request->input('message');
-        $donation->date = Carbon::now()->format('Y-m-d');
-        $donation->save();
+        Donation::create([
+            'donator_name' => $request->input('donator_name'),
+            'email' => $request->input('email'),
+            'amount' => $request->input('amount'),
+            'message' => $request->input('message'),
+            'date' => Carbon::now()->format('Y-m-d'),
+        ]);
         return redirect('/donation');
     }
 
