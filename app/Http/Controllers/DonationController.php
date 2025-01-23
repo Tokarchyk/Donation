@@ -19,7 +19,14 @@ class DonationController extends Controller
             'message' => $request->input('message'),
             'date' => Carbon::now()->format('Y-m-d'),
         ]);
-        return redirect('/donation');
+        return redirect('/donation'); 
+    }
+
+    public function destroy(int $id)
+    {
+        Donation::findOrFail($id)->delete();
+
+        return redirect()->route('donation.index')->with('message', 'Record deleted successfully');
     }
 
     public function index(Request $request): View
@@ -37,7 +44,7 @@ class DonationController extends Controller
         $donations = Donation::where(
             'donator_name',
             'LIKE',
-            '%' . $request->input('search') . '%'
+            '%' . $request->input('search') . '%',
         )
         ->orderBy($sortedColumn, $sortedDirection)
         ->paginate(10);

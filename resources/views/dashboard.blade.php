@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
 <body class="container">
 <div class="row">
 
@@ -118,6 +119,7 @@
             <th scope="col">Amount<x-sort-direction sort="{{ $sortDirection }}" column="amount"/></th>
             <th scope="col">Message
             <th scope="col">Date<x-sort-direction sort="{{ $sortDirection }}" column="date"/></th>
+            <th scope="col"></th>
         </tr>
     </thead>
         <tbody>
@@ -138,8 +140,22 @@
                 <td>
                     {{$donation->date}}
                 </td>
+                <td>
+                    <form method="POST" action="{{ route('donation.destroy', $donation->id) }}">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-outline-danger" title="Delete">
+                    <i class="bi bi-trash"></i>
+                    </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
+        @if(session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
 </table>
 <div>            
     {{$donations->links('pagination::bootstrap-5')}}

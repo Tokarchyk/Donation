@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/donation', [DonationController::class, 'index'])->name('donation.index');
 Route::post('/store', [DonationController::class, 'store'])->name('donation.store');
+Route::delete('/donation/{id}', [DonationController::class, 'destroy'])->name('donation.destroy');
+
 
 Auth::routes();
 
