@@ -19,7 +19,7 @@ class DonationController extends Controller
             'message' => $request->input('message'),
             'date' => Carbon::now()->format('Y-m-d'),
         ]);
-        return redirect('/donation'); 
+        return redirect('/donation');
     }
 
     public function destroy(int $id)
