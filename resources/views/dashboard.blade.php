@@ -51,8 +51,8 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Fill out the form</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form class="w-50 mt-5 m-auto" action="{{ route('donations.store') }}" method ="POST">
                 <div class="modal-body">
-                    <form class="w-50 mt-5 m-auto" action="{{ route('donation.store') }}" method ="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label ">Name</label>
@@ -80,14 +80,14 @@
                         <input type="text" class="form-control" id="text" name="message">
                     </div>
                 </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Send a donation</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send a donation</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-</form>
 
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
@@ -109,7 +109,7 @@
         chart.draw(data, options);
     }
 </script>
-    <div id="curve-chart" style="width: auto; height: auto"></div>
+<div id="curve-chart" style="width: auto; height: auto"></div>
     
 <table class="table table-striped">
     <thead>
@@ -119,6 +119,7 @@
             <th scope="col">Amount<x-sort-direction sort="{{ $sortDirection }}" column="amount"/></th>
             <th scope="col">Message
             <th scope="col">Date<x-sort-direction sort="{{ $sortDirection }}" column="date"/></th>
+            <th scope="col"></th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -141,12 +142,19 @@
                     {{$donation->date}}
                 </td>
                 <td>
-                    <form method="POST" action="{{ route('donation.destroy', $donation->id) }}">
+                    <form method="GET" action="{{ route('donations.edit', $donation) }}">
+                        <button class="btn btn-outline-success" tittle="Edit">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ route('donations.destroy', $donation->id) }}">
                     @csrf
                     @method('delete')
-                    <button class="btn btn-outline-danger" title="Delete">
-                    <i class="bi bi-trash"></i>
-                    </button>
+                        <button class="btn btn-outline-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>

@@ -19,14 +19,29 @@ class DonationController extends Controller
             'message' => $request->input('message'),
             'date' => Carbon::now()->format('Y-m-d'),
         ]);
-        return redirect('/donation');
+        return redirect('/donations');
     }
 
-    public function destroy(int $id)
+    public function destroy(Donation $donation)
     {
-        Donation::findOrFail($id)->delete();
+        $donation->delete();
 
-        return redirect()->route('donation.index')->with('message', 'Record deleted successfully');
+        return redirect()->route('donations.index')->with('message', 'Record deleted successfully');
+    }
+
+    public function edit(Donation $donation)
+    {
+        return view('edit', compact('donation'));
+    }
+
+    public function update(Donation $donation)
+    {
+        $donation->donator_name = request()->get('donator_name', '');
+        $donation->email = request()->get('email', '');
+        $donation->amount = request()->get('amount', '');
+        $donation->message = request()->get('message', '');
+        $donation->save();
+        return redirect('/donations')->with('message', 'Record updated successfully');
     }
 
     public function index(Request $request): View

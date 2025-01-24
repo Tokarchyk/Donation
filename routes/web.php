@@ -18,10 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/donation', [DonationController::class, 'index'])->name('donation.index');
-Route::post('/store', [DonationController::class, 'store'])->name('donation.store');
-Route::delete('/donation/{id}', [DonationController::class, 'destroy'])->name('donation.destroy');
-
+Route::resource('donations', DonationController::class);
 
 Auth::routes();
 
