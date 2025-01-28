@@ -19,7 +19,7 @@ class DonationController extends Controller
             'message' => $request->input('message'),
             'date' => Carbon::now()->format('Y-m-d'),
         ]);
-        return redirect('/donations');
+        return redirect()->route('donations.index');
     }
 
     public function destroy(Donation $donation)
@@ -34,14 +34,13 @@ class DonationController extends Controller
         return view('edit', compact('donation'));
     }
 
-    public function update(Donation $donation)
+    public function update(DonationRequest $request, int $id)
     {
-        $donation->donator_name = request()->get('donator_name', '');
-        $donation->email = request()->get('email', '');
-        $donation->amount = request()->get('amount', '');
-        $donation->message = request()->get('message', '');
-        $donation->save();
-        return redirect('/donations')->with('message', 'Record updated successfully');
+        $donation = Donation::find($id);
+        $input = $request->all();
+        $donation->update($input);
+
+        return redirect()->route('donations.index')->with('message', 'Record updated successfully');
     }
 
     public function index(Request $request): View

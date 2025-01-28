@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Donation::factory(50)->create();
+        $this->call([
+            UserSeeder::class,
+            DonationSeeder::class,
+        ]);
     }
 }

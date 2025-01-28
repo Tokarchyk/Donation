@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Donation;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Donation>
@@ -22,6 +24,7 @@ class DonationFactory extends Factory
                 'amount' => fake()->randomNumber(4, false),
                 'message' => fake()->text(),
                 'date' => fake()->dateTime(),
+                'user_id' => User::get()->random(),
         ];
     }
 }
