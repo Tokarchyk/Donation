@@ -5,6 +5,12 @@
     <h2>Donation Statistics</h2>
 </div>
 
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
 @foreach($values as $value)
     <x-widget 
         title="{{ $value['title'] }}"
@@ -134,11 +140,6 @@
                 </td>
             </tr>
         @endforeach
-        @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session()->get('message') }}
-            </div>
-        @endif
 </table>
 <div>            
     {{$donations->links('pagination::bootstrap-5')}}

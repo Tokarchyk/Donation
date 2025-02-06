@@ -22,8 +22,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/donations">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('donations.index') }}">Home</a>
                     </li>
+                    
+                    @if(auth()->user()?->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('users.index') }}">Users</a>
+                    </li>
+                    @endif
                 @auth
                     <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
@@ -63,11 +69,6 @@
         </a>
         <span class="mb-3 mb-md-0 text-muted">© 2025 Donations, Inc</span>
     </div>
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-    </ul>
 </footer>
 </body>
 </html>

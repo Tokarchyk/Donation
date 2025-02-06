@@ -7,9 +7,15 @@ use Illuminate\View\View;
 use App\Models\Donation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Services\DonationService;
 
 class DonationController extends Controller
 {
+    public function __construct(DonationService $donationService)
+    {
+        $this->donationService = $donationService;
+    }
+
     public function store(DonationRequest $request)
     {
         Donation::create([
@@ -83,43 +89,11 @@ class DonationController extends Controller
             ...$newArray,
         ];
 
-        $topDonation = Donation::orderByDesc('amount')->first();
-
-        $totalAmountDonation = Donation::sum('amount');
-
-        $lastMonthAmount = Donation::whereBetween(
-            'date',
-            [
-                Carbon::now()->subMonth()->startOfMonth(),
-                Carbon::now()->subMonth()->endOfMonth()
-            ]
-        )->get()
-        ->sum('amount');
-
-        $values = [
-            [
-                'title' => 'Top Donator',
-                'amount' => $topDonation['amount'],
-                'email' => $topDonation['email'],
-            ],
-            [
-                'title' => 'Last Month Amount',
-                'amount' => $lastMonthAmount,
-                'email' => ''
-            ],
-            [
-                'title' => 'All Time Amount',
-                'amount' => $totalAmountDonation,
-                'email' => ''
-            ],
-        ];
+        $results = $this->donationService->getWidget();
 
         return view('dashboard')->with([
             "donations" => $donations,
-            "topDonation" => $topDonation,
-            "totalAmountDonation" => $totalAmountDonation,
-            "totalSum" => $lastMonthAmount,
-            "values" => $values,
+            "values" => $results,
             "chartData" => $chartDataAmount,
             "sortDirection" => $sortedDirection,
             "sortColumn" => $sortedColumn,
