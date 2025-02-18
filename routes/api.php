@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Donation\DonationTableController;
+use App\Http\Controllers\DonationController;
+use App\Services\DonationService;
+use App\Http\Controllers\Api\DonationController as ApiDonationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::delete('/donations/{id}', [DonationController::class, 'destroy']);
+Route::get('/donations', [ApiDonationController::class, 'index']);
+Route::get('/donations/widget', [ApiDonationController::class, 'getWidgetData']);

@@ -1,5 +1,7 @@
 @extends('layouts.layout')
 @section('content')
+@vite(['resources/js/app.js'])
+
 
 <div class="col-12 text-center">
     <h2>Donation Statistics</h2>
@@ -11,16 +13,22 @@
     </div>
 @endif
 
-@foreach($values as $value)
+<!-- @foreach($values as $value)
     <x-widget 
         title="{{ $value['title'] }}"
         amount="{{ $value['amount'] }}"
         email="{{ $value['email'] }}"
     />
-@endforeach
+@endforeach -->
+
+<!-- ADD WIDGET COMPONENT -->
+
+<div id="app" >
+    <widget-component></widget-component>
+    
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary w-25 mt-5 m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Donate Now
 </button>
 
@@ -70,6 +78,7 @@
     </div>
 </div>
 
+<!-- Google graphics -->
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -91,8 +100,11 @@
     }
 </script>
 <div id="curve-chart" style="width: auto; height: auto"></div>
-    
-<table class="table table-striped">
+<table-component></table-component>
+</div>
+
+
+<!-- <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Donator Name<x-sort-direction sort="{{ $sortDirection }}" column="donator_name"/></th>
@@ -143,6 +155,6 @@
 </table>
 <div>            
     {{$donations->links('pagination::bootstrap-5')}}
-</div>
+</div> -->
 
 @endsection
