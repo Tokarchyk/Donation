@@ -17,7 +17,6 @@ class DonationController extends Controller
 
     public function index(Request $request)
     {
-        sleep(2);
         $query = Donation::query();
 
         if ($request->has('search')) {
@@ -46,7 +45,7 @@ class DonationController extends Controller
 
     public function getWidgetData()
     {
-        sleep(2);
+        sleep(3);
         $results = $this->donationService->getWidget();
 
         return response()->json($results);

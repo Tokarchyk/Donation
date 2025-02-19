@@ -1,12 +1,30 @@
 <template>
 
-<div v-if="isLoading" class="d-flex justify-content-center">    
-    <div  class="spinner-grow" role="status">
-        <span class="visually-hidden">Loading...</span>
+<div v-if="isLoading" class="grid-row">
+    <div class="card mb-1 mt-3">
+        <div class="card-header" ></div>
+        <div class="d-flex justify-content-center card-body">
+            <h5 class="spinner-grow" role="status" />
+            <h6 />
+        </div>
+    </div>
+    <div class="card mb-1 mt-3">
+        <div class="card-header" ></div>
+        <div class=" d-flex justify-content-center card-body">
+            <h5 class="spinner-grow" role="status" />
+            <h6 />
+        </div>
+    </div>
+    <div class="card mb-1 mt-3">
+        <div class="card-header" ></div>
+        <div class="d-flex justify-content-center card-body">
+            <h5 class="spinner-grow" role="status" />
+            <h6 />
+        </div>
     </div>
 </div>
 
-<div class="grid-row">
+<div  class="grid-row">
     <div v-for="value in values" :key="value.id" class="card text-white bg-info mb-1 text-center mt-3">
         <div class="card-header">{{ value.title }}</div>
         <div class="card-body">
@@ -50,6 +68,11 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+}
+
+.card {
+    background-color: transparent;
+    height: 135px;
 }
 
 </style>

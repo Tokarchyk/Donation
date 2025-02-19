@@ -2,14 +2,16 @@
 @section('content')
 @vite(['resources/js/app.js'])
 
-<!-- ADD WIDGET COMPONENT -->
-
-<div id="app" >
-    <widget-component></widget-component>
-
 <div class="col-12 text-center">
     <h2>Donation Statistics</h2>
 </div>
+
+<!-- ADD WIDGET COMPONENT -->
+
+<div id="app" >
+    <!-- <skeleton-loading-component></skeleton-loading-component> -->
+    <widget-component></widget-component>
+
 
 @if(session()->has('message'))
     <div class="alert alert-success">

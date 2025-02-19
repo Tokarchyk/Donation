@@ -73,6 +73,7 @@ onMounted(() => {
 
 </script>
 <template>
+    
     <div class="d-flex justify-content-between pb-2 mb-2">
         <input 
             v-model="searchQuery"

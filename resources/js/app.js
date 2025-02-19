@@ -9,6 +9,7 @@ import { createApp } from 'vue';
 import ExampleComponent from './components/ExampleComponent.vue';
 import TableComponent from './components/TableComponent.vue';
 import WidgetComponent from './components/WidgetComponent.vue';
+import SkeletonLoadingComponent from './components/SkeletonLoadingComponent.vue';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
 /**
@@ -24,6 +25,7 @@ app.component('example-component', ExampleComponent);
 app
     .component('table-component', TableComponent)
     .component('widget-component', WidgetComponent)
+    .component('skeleton-loading-component', SkeletonLoadingComponent)
     .component('Pagination', Bootstrap5Pagination)
 
 /**
