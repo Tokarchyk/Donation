@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Models\Donation;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\DonationRequest;
 use App\Services\DonationService;
 
@@ -46,9 +46,18 @@ class DonationController extends Controller
 
     public function getWidgetData()
     {
-            sleep(2);
-            $results = $this->donationService->getWidget();
+        sleep(2);
+        $results = $this->donationService->getWidget();
 
-            return response()->json($results);
+        return response()->json($results);
+    }
+
+    public function destroy(int $id)
+    {
+        $donation = Donation::find($id);
+        $donation->delete();
+        return response()->json([
+            "status" => true
+        ], 204);
     }
 }

@@ -2,6 +2,10 @@
 @section('content')
 @vite(['resources/js/app.js'])
 
+<!-- ADD WIDGET COMPONENT -->
+
+<div id="app" >
+    <widget-component></widget-component>
 
 <div class="col-12 text-center">
     <h2>Donation Statistics</h2>
@@ -12,20 +16,6 @@
         {{ session()->get('message') }}
     </div>
 @endif
-
-<!-- @foreach($values as $value)
-    <x-widget 
-        title="{{ $value['title'] }}"
-        amount="{{ $value['amount'] }}"
-        email="{{ $value['email'] }}"
-    />
-@endforeach -->
-
-<!-- ADD WIDGET COMPONENT -->
-
-<div id="app" >
-    <widget-component></widget-component>
-    
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -102,59 +92,5 @@
 <div id="curve-chart" style="width: auto; height: auto"></div>
 <table-component></table-component>
 </div>
-
-
-<!-- <table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Donator Name<x-sort-direction sort="{{ $sortDirection }}" column="donator_name"/></th>
-            <th scope="col">Email<x-sort-direction sort="{{ $sortDirection }}" column="email"/></th>
-            <th scope="col">Amount<x-sort-direction sort="{{ $sortDirection }}" column="amount"/></th>
-            <th scope="col">Message
-            <th scope="col">Date<x-sort-direction sort="{{ $sortDirection }}" column="date"/></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-        <tbody>
-        @foreach($donations as $donation)
-            <tr>
-                <td>
-                    {{$donation->donator_name}}
-                </td>
-                <td>
-                    {{$donation->email}}
-                </td>
-                <td>
-                    {{$donation->amount}}
-                </td>
-                <td>
-                    {{$donation->message}}
-                </td>
-                <td>
-                    {{$donation->date}}
-                </td>
-                <td>
-                    <form method="GET" action="{{ route('donations.edit', $donation) }}">
-                        <button class="btn btn-outline-success" tittle="Edit">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </button>
-                    </form>
-                </td>
-                <td>
-                    <form method="POST" action="{{ route('donations.destroy', $donation->id) }}">
-                    @csrf
-                    @method('delete')
-                        <button class="btn btn-outline-danger" title="Delete">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-</table>
-<div>            
-    {{$donations->links('pagination::bootstrap-5')}}
-</div> -->
 
 @endsection

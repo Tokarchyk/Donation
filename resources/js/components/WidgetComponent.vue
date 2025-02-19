@@ -30,7 +30,6 @@ const isLoading = ref(true)
 
 const getValues = async () => {
     try {
-        console.log(values);
         const response = await axios.get(`/api/donations/widget`)
         values.value = response.data;
         isLoading.value = false

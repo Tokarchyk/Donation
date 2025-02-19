@@ -28,15 +28,6 @@ class DonationController extends Controller
         return redirect()->route('donations.index');
     }
 
-    public function destroy(int $id)
-    {
-        $donation = Donation::find($id);
-        $donation->delete();
-        return response()->json([
-            "status" => true
-        ], 204);
-    }
-
     public function edit(Donation $donation)
     {
         return view('edit', compact('donation'));
