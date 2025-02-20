@@ -45,7 +45,6 @@ class DonationController extends Controller
 
     public function getWidgetData()
     {
-        sleep(3);
         $results = $this->donationService->getWidget();
 
         return response()->json($results);

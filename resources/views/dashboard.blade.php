@@ -9,7 +9,7 @@
 <!-- ADD WIDGET COMPONENT -->
 
 <div id="app" >
-    <!-- <skeleton-loading-component></skeleton-loading-component> -->
+    <!-- <card-component></card-component> -->
     <widget-component></widget-component>
 
 
