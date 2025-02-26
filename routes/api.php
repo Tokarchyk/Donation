@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::delete('/donations/{id}', [ApiDonationController::class, 'destroy']);
 Route::get('/donations', [ApiDonationController::class, 'index']);
 Route::get('/donations/widget', [ApiDonationController::class, 'getWidgetData']);
+Route::post('/donations/store', [ApiDonationController::class, 'store']);

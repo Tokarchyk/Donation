@@ -6,10 +6,11 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-import ExampleComponent from './components/ExampleComponent.vue';
+import SortableComponent from './components/SortableComponent.vue';
 import TableComponent from './components/TableComponent.vue';
 import WidgetComponent from './components/WidgetComponent.vue';
 import CardComponent from './components/CardComponent.vue';
+import ModalComponent from './components/ModalComponent.vue';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
 /**
@@ -21,11 +22,12 @@ import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 const app = createApp({});
 
 
-app.component('example-component', ExampleComponent);
 app
     .component('table-component', TableComponent)
     .component('widget-component', WidgetComponent)
     .component('card-component', CardComponent)
+    .component('sortable-th-component', SortableComponent)
+    .component('modal-component', ModalComponent)
     .component('Pagination', Bootstrap5Pagination)
 
 /**

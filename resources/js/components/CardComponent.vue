@@ -22,25 +22,27 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue'
+import { ref, watchEffect } from 'vue'
 
-const loading = ref(true)
+const loading = ref(true);
 
 const props = defineProps({
     title: String,
     amount: Number,
     email: String,
+    
 });
 
-onMounted(() => {
-  setTimeout(() => {
-    loading.value = false;
-  }, 2000); 
+watchEffect(() => {
+    if (props.title) {
+        loading.value = false;
+    }
 });
 
 </script>
 
 <style scoped>
+
 
 .card {
     background-color: transparent;

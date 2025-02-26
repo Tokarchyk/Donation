@@ -7,12 +7,13 @@ use App\Models\Donation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use App\Services\DonationService;
+use Carbon\Carbon;
 
 class DonationController extends Controller
 {
     public function __construct(DonationService $donationService)
     {
-            $this->donationService = $donationService;
+        $this->donationService = $donationService;
     }
 
     public function index(Request $request)
@@ -25,19 +26,17 @@ class DonationController extends Controller
         }
 
         $sortColumn = $request->input('sortBy', 'donator_name');
-        if (! in_array($sortColumn, ['id', 'donator_name', 'email', 'amount', 'message', 'date'])) {
-                $sortColumn = 'donator_name';
+        if (!in_array($sortColumn, ['id', 'donator_name', 'email', 'amount', 'message', 'date'])) {
+            $sortColumn = 'donator_name';
         }
 
         $sortOrder = $request->input('sortOrder', 'asc');
-        if (! in_array($sortOrder, ['asc', 'desc'])) {
-                $sortOrder = 'desc';
+        if (!in_array($sortOrder, ['asc', 'desc'])) {
+            $sortOrder = 'desc';
         }
 
         $query->orderBy($sortColumn, $sortOrder);
-
         $donations = $query->paginate(5);
-
         $results = $this->donationService->getWidget();
 
         return response()->json($donations);
@@ -54,6 +53,20 @@ class DonationController extends Controller
     {
         $donation = Donation::find($id);
         $donation->delete();
+        return response()->json([
+            "status" => true
+        ], 204);
+    }
+
+    public function store(DonationRequest $request)
+    {
+        Donation::create([
+            'donator_name' => $request->input('donator_name'),
+            'email' => $request->input('email'),
+            'amount' => $request->input('amount'),
+            'message' => $request->input('message'),
+            'date' => Carbon::now()->format('Y-m-d'),
+        ]);
         return response()->json([
             "status" => true
         ], 204);

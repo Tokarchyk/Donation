@@ -18,7 +18,11 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue'
 import CardComponent from './CardComponent.vue';
 
-const values = ref([]);
+const values = ref([
+    [],
+    [],
+    [],
+]);
 
 //--- GET VALUES FROM SERVICES ---
 
@@ -38,6 +42,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
+
 
 .grid-row {
     display: grid;

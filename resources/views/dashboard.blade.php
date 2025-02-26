@@ -9,7 +9,7 @@
 <!-- ADD WIDGET COMPONENT -->
 
 <div id="app" >
-    <!-- <card-component></card-component> -->
+    <!-- <card-component></card-component>/ -->
     <widget-component></widget-component>
 
 
@@ -20,12 +20,12 @@
 @endif
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!-- <button type="button" class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Donate Now
-</button>
+</button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -68,7 +68,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Google graphics -->
 <script type="text/javascript">

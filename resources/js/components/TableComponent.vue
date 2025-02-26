@@ -1,6 +1,8 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, ref } from 'vue'
+import SortableComponent from './SortableComponent.vue';
+import ModalComponent from './ModalComponent.vue';
 
 const donations = ref([])
 const searchQuery = ref('')
@@ -9,7 +11,6 @@ const sortColumn = ref('')
 const sortOrder = ref('asc')
 
 const isLoading = ref(true)
-
 
 //--- GET ALL RECORDS FROM DATABASE METHOD ---
 
@@ -36,25 +37,28 @@ const getSearchDonations = async () => {
 
 // --- SORTED METHOD ---
 
-const sortDonations = async (column) => {
+const fetchDonations = async (column = sortColumn.value, order = sortOrder.value) => {
     try {
-        if (sortColumn.value === column) {
-            sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc';
-        } else {
-            sortColumn.value = column;
-            sortOrder.value = 'asc';
-        }
+        sortColumn.value = column;
+        sortOrder.value = order;
+
         const response = await axios.get(`/api/donations`, {
             params: {
                 sortBy: sortColumn.value,
-                sortOrder: sortOrder.value
-            }
-        })
-        donations.value = response.data; 
+                sortOrder: sortOrder.value,
+            },
+        });
+
+        donations.value = response.data;
+
     } catch (error) {
-    console.error('Error fetching donations:', error)
+        console.error('Error fetching donations:', error);
     }
-}
+};
+
+const handleSort = ({ column, order }) => {
+    fetchDonations(column, order);
+};
 
 //--- DELETE METHOD ---
 
@@ -67,13 +71,39 @@ const deleteDonation = async (id) => {
     }
 }
 
+//  --- MODAL WINDOW METHOD ---
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
+
+
 onMounted(() => {
-  getDonations()
+  getDonations(),
+  fetchDonations()
 })
 
 </script>
 <template>
-    
+
+<!-- Button trigger modal -->
+<div>
+<button @click="openModal"
+        type="button"
+        class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3"
+        data-bs-target="#exampleModal"
+>
+        Donate Now 
+</button>
+</div>
+<ModalComponent :isOpen="isModalOpen" @close="closeModal"></ModalComponent>
+
     <div class="d-flex justify-content-between pb-2 mb-2">
         <input 
             v-model="searchQuery"
@@ -92,13 +122,40 @@ onMounted(() => {
         <table v-else class="table table-striped">
         <thead>
         <tr>
-            <th @click="sortDonations('donator_name')" scope="col">
-                Name
-                <span v-if="sortColumn === 'donator_name'">
-                    {{ sortOrder === "asc" ? '▲' : '▼' }}
-                </span>
-            </th>
-            <th @click="sortDonations('email')" scope="col">
+        <SortableComponent
+            column="donator_name"
+            :sortColumn="sortColumn"
+            :sortOrder="sortOrder"
+            @update-sort="handleSort"
+        >
+            Name
+        </SortableComponent>
+        <SortableComponent
+            column="email"
+            :sortColumn="sortColumn"
+            :sortOrder="sortOrder"
+            @update-sort="handleSort"
+        >
+            Email
+        </SortableComponent>
+        <SortableComponent
+            column="amount"
+            :sortColumn="sortColumn"
+            :sortOrder="sortOrder"
+            @update-sort="handleSort"
+        >
+            Amount
+        </SortableComponent>
+        <th scope="col">Message</th>
+        <SortableComponent
+            column="date"
+            :sortColumn="sortColumn"
+            :sortOrder="sortOrder"
+            @update-sort="handleSort"
+        >
+            Date
+        </SortableComponent>
+            <!-- <th @click="sortDonations('email')" scope="col">
                 Email
                 <span v-if="sortColumn === 'email'">
                     {{ sortOrder === 'asc' ? '▲' : '▼' }}
@@ -116,7 +173,7 @@ onMounted(() => {
                 <span v-if="sortColumn === 'date'">
                     {{ sortOrder === 'asc' ? '▲' : '▼' }}
                 </span>
-            </th>
+            </th> -->
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
