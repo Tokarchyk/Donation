@@ -42,11 +42,8 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-
-
 .card {
     background-color: transparent;
     height: 135px;
 }
-
 </style>

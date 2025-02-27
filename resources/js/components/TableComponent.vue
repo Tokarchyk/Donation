@@ -104,9 +104,9 @@ onMounted(() => {
 <!-- Button trigger modal -->
 <div>
 <button @click="openModal"
-        type="button"
-        class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3"
-        data-bs-target="#exampleModal"
+    type="button"
+    class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3"
+    data-bs-target="#exampleModal"
 >
         Donate Now 
 </button>
@@ -199,9 +199,7 @@ onMounted(() => {
 <Pagination :data="donations" @pagination-change-page="getDonations" />
 </div>
 </template>
-
 <style scoped>
-
 .success-message {
   margin-top: 20px;
   padding: 10px;
