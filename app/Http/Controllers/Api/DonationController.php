@@ -60,15 +60,16 @@ class DonationController extends Controller
 
     public function store(DonationRequest $request)
     {
-        Donation::create([
+        $donation = Donation::create([
             'donator_name' => $request->input('donator_name'),
             'email' => $request->input('email'),
             'amount' => $request->input('amount'),
-            'message' => $request->input('message'),
+            'message' => $request->input('message') ?? '',
             'date' => Carbon::now()->format('Y-m-d'),
         ]);
         return response()->json([
-            "status" => true
-        ], 204);
+            'message' => 'Donation saved successfully',
+            'data' => $donation
+        ]);
     }
 }

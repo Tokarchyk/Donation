@@ -11,19 +11,23 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label ">Name</label>
-                        <input v-model="formData.donator_name" type="name" class="form-control" id="name" name="donator_name" aria-describedby="name" value="">
+                        <input v-model="formData.donator_name" type="name" class="form-control" id="name" name="donator_name" aria-describedby="name" >
+                        <span class="error" v-if="errors.donator_name">{{ errors.donator_name[0] }}</span>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email</label>
-                        <input v-model="formData.email" type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" value="">
+                        <input v-model="formData.email" type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" >
+                        <span class="error" v-if="errors.email">{{ errors.email[0] }}</span>
                     </div>
                     <div class="mb-3">
                         <label for="amount" class="form-label">Amount</label>
-                        <input v-model="formData.amount" type="sum" class="form-control" id="amount" name="amount" value="">
+                        <input v-model="formData.amount" type="sum" class="form-control" id="amount" name="amount" >
+                        <span class="error" v-if="errors.amount">{{ errors.amount[0] }}</span>
                     </div>
                     <div class="mb-3">
                         <label for="text" class="form-label">Message</label>
                         <input v-model="formData.message" type="text" class="form-control" id="text" name="message">
+                        <!-- <span class="error" v-if="errors.message">{{ errors.message[0] }}</span> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -42,24 +46,26 @@ import axios from 'axios';
 import { ref, defineProps, defineEmits, watch, onMounted } from 'vue';
 import { Modal } from 'bootstrap';
 
+const errors = ref({})
+
 const props = defineProps({
-  isOpen: Boolean,
+    isOpen: Boolean,
 });
 
-const emit = defineEmits(['close', 'saved']);
+const emit = defineEmits(['close', 'saved', 'success-message']);
 
 const formData = ref({
-  donator_name: '',
-  email: '',
-  amount: 0,
-  message: '',
+    donator_name: '',
+    email: '',
+    amount: 0,
+    message: '',
 });
 
 let modal;
 
 onMounted(() => {
-  const modalElement = document.getElementById('myModal');
-  modal = new Modal(modalElement);
+    const modalElement = document.getElementById('myModal');
+    modal = new Modal(modalElement);
 });
 
 watch(
@@ -77,22 +83,44 @@ watch(
 
 const closeModal = () => {
     emit('close');
+    resetForm();
+};
+
+const resetForm = () => {
+    formData.value = {
+        donator_name: '',
+        email: '',
+        amount: 0,
+        message: '',
+    };
+    errors.value = {};
 };
 
 const submitForm = async () => {
-  try {
-    const response = await axios.post('/api/donations/store', formData.value);
-
-    emit('saved', response.data);
-
-    closeModal();
-  } catch (error) {
-    console.error('Error saving data:', error);
-  }
+    try {
+        errors.value = {};
+        const response = await axios.post('/api/donations/store', formData.value);
+        console.log('Success save data:', response.data);
+        emit('saved', response.data);
+        emit('success-message', response.data.message);
+        closeModal();
+    } catch (error) {
+        if (error.response && error.response.status === 422) {
+            errors.value = error.response.data.errors;
+        } else {
+            console.error('Error saving data:', error);
+        }
+    }
 };
 
 </script>
 
 <style>
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
 
 </style>
