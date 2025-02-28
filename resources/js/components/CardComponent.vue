@@ -9,7 +9,6 @@
         </div>
     </div>
 </div>
-
 <div v-else class="card text-white bg-info mb-1 text-center mt-3">
     <div class="card-header">{{ title }}</div>
     <div class="card-body">

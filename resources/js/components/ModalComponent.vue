@@ -5,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Fill out the form</h1>
-                    <button @click="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button @click="closeModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form @submit.prevent="submitForm" class="w-50 mt-2 m-auto">
                 <div class="modal-body">
@@ -27,7 +27,6 @@
                     <div class="mb-3">
                         <label for="text" class="form-label">Message</label>
                         <input v-model="formData.message" type="text" class="form-control" id="text" name="message">
-                        <!-- <span class="error" v-if="errors.message">{{ errors.message[0] }}</span> -->
                     </div>
                 </div>
                 <div class="modal-footer">

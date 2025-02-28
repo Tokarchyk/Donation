@@ -103,20 +103,19 @@ onMounted(() => {
 
 <!-- Button trigger modal -->
 <div>
-<button @click="openModal"
-    type="button"
-    class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3"
-    data-bs-target="#exampleModal"
->
-        Donate Now 
-</button>
+    <button @click="openModal"
+        type="button"
+        class="btn btn-primary w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3"
+        data-bs-target="#exampleModal"
+    >
+    Donate Now 
+    </button>
 
-<ModalComponent :isOpen="isModalOpen" @close="closeModal" @success-message="handleSaved"></ModalComponent>
+    <ModalComponent :isOpen="isModalOpen" @close="closeModal" @success-message="handleSaved"></ModalComponent>
 
-<div v-if="successMessage" class="success-message">
-    {{ successMessage }}
-</div>
-
+    <div v-if="successMessage" class="success-message">
+        {{ successMessage }}
+    </div>
 </div>
 
 <div class="d-flex justify-content-between pb-2 mb-2">
@@ -135,71 +134,73 @@ onMounted(() => {
         </div>
     </div>    
     <table v-else class="table table-striped">
-    <thead>
-    <tr>
-    <SortableComponent
-        column="donator_name"
-        :sortColumn="sortColumn"
-        :sortOrder="sortOrder"
-        @update-sort="handleSort"
-    >
-        Name
-    </SortableComponent>
-    <SortableComponent
-        column="email"
-        :sortColumn="sortColumn"
-        :sortOrder="sortOrder"
-        @update-sort="handleSort"
-    >
-        Email
-    </SortableComponent>
-    <SortableComponent
-        column="amount"
-        :sortColumn="sortColumn"
-        :sortOrder="sortOrder"
-        @update-sort="handleSort"
-    >
-        Amount
-    </SortableComponent>
-    <th scope="col">Message</th>
-    <SortableComponent
-        column="date"
-        :sortColumn="sortColumn"
-        :sortOrder="sortOrder"
-        @update-sort="handleSort"
-    >
-        Date
-    </SortableComponent>
-        <th scope="col"></th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="donation in donations.data" :key="donation.id">
-        <td>{{ donation.donator_name }}</td>
-        <td>{{ donation.email }}</td>
-        <td>{{ donation.amount }}</td>
-        <td>{{ donation.message }}</td>
-        <td>{{ donation.date }}</td>
-        <td>
-            <form method="GET" :action="`/donations/${donation.id}/edit`">
-                <button class="btn btn-outline-success" tittle="Edit">
-                    <i class="bi bi-arrow-repeat"></i>
-                </button>
-            </form>
-        </td>
-        <td>
-            <button @click="deleteDonation(donation.id)" class="btn btn-outline-danger">
-                <i class="bi bi-trash"></i>
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<Pagination :data="donations" @pagination-change-page="getDonations" />
+        <thead>
+            <tr>
+                <SortableComponent
+                    column="donator_name"
+                    :sortColumn="sortColumn"
+                    :sortOrder="sortOrder"
+                    @update-sort="handleSort"
+                >
+                Name
+                </SortableComponent>
+                <SortableComponent
+                    column="email"
+                    :sortColumn="sortColumn"
+                    :sortOrder="sortOrder"
+                    @update-sort="handleSort"
+                >
+                Email
+                </SortableComponent>
+                <SortableComponent
+                    column="amount"
+                    :sortColumn="sortColumn"
+                    :sortOrder="sortOrder"
+                    @update-sort="handleSort"
+                >
+                Amount
+                </SortableComponent>
+                <th scope="col">Message</th>
+                <SortableComponent
+                    column="date"
+                    :sortColumn="sortColumn"
+                    :sortOrder="sortOrder"
+                    @update-sort="handleSort"
+                >
+                Date
+                </SortableComponent>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="donation in donations.data" :key="donation.id">
+                <td>{{ donation.donator_name }}</td>
+                <td>{{ donation.email }}</td>
+                <td>{{ donation.amount }}</td>
+                <td>{{ donation.message }}</td>
+                <td>{{ donation.date }}</td>
+                <td>
+                    <form method="GET" :action="`/donations/${donation.id}/edit`">
+                        <button class="btn btn-outline-success" tittle="Edit">
+                        <i class="bi bi-arrow-repeat"></i>
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <button @click="deleteDonation(donation.id)" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <Pagination :data="donations" @pagination-change-page="getDonations" />
 </div>
 </template>
+
 <style scoped>
+
 .success-message {
   margin-top: 20px;
   padding: 10px;

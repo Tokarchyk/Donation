@@ -15,24 +15,24 @@ import { defineProps, defineEmits } from 'vue';
 // --- SORTED METHOD ---
 
 const props = defineProps({
-  column: String,
-  sortColumn: String,
-  sortOrder: String,
+    column: String,
+    sortColumn: String,
+    sortOrder: String,
 });
 
 const emit = defineEmits(['update-sort']);
 
 const sortDonations = () => {
-  let newSortOrder = 'asc';
+    let newSortOrder = 'asc';
 
-  if (props.sortColumn === props.column) {
-    newSortOrder = props.sortOrder === 'asc' ? 'desc' : 'asc';
-  }
+    if (props.sortColumn === props.column) {
+        newSortOrder = props.sortOrder === 'asc' ? 'desc' : 'asc';
+    }
 
-  emit('update-sort', {
-    column: props.column,
-    order: newSortOrder,
-  });
+    emit('update-sort', {
+        column: props.column,
+        order: newSortOrder,
+    });
 };
 
 </script>

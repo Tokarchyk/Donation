@@ -2,12 +2,12 @@
 
     <div class="grid-row">
         <CardComponent
-        v-for="value in values"
-            :key="value.id"
-            :title="value.title"
-            :amount="value.amount"
-            :email="value.email"
-        />
+            v-for="value in values"
+                :key="value.id"
+                :title="value.title"
+                :amount="value.amount"
+                :email="value.email"
+            />
     </div>
 
 </template>
@@ -36,15 +36,17 @@ const getValues = async () => {
 }
 
 onMounted(() => {
-  getValues()
+    getValues()
 })
 
 </script>
 
 <style scoped>
+
 .grid-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
+
 </style>
