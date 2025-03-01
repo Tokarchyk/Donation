@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use App\Services\DonationService;
 use Carbon\Carbon;
+use App\Jobs\DeleteOldDonation;
+use Illuminate\Support\Facades\Log;
 
 class DonationController extends Controller
 {
@@ -34,7 +36,6 @@ class DonationController extends Controller
         if (!in_array($sortOrder, ['asc', 'desc'])) {
             $sortOrder = 'desc';
         }
-
         $query->orderBy($sortColumn, $sortOrder);
         $donations = $query->paginate(5);
         $results = $this->donationService->getWidget();
@@ -71,5 +72,14 @@ class DonationController extends Controller
             'message' => 'Donation saved successfully',
             'data' => $donation
         ]);
+    }
+
+    public function deleteOldDonations(Request $request)
+    {
+        $targetDate = $request->input('date');
+
+        DeleteOldDonation::dispatch($targetDate);
+
+        return response()->json(['message' => 'Deletion job successfuly delete']);
     }
 }

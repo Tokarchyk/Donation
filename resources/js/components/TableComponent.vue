@@ -92,6 +92,11 @@ const handleSaved = () => {
 
 };
 
+const deleteOldDonation = async () => {
+    const response = await axios.get(`/api/donations/job`)
+    console.log(response);
+}
+
 onMounted(() => {
     getDonations(),
     fetchDonations()
@@ -117,6 +122,13 @@ onMounted(() => {
         {{ successMessage }}
     </div>
 </div>
+    <!-- EXAMPLE JOB -->
+
+<button @click="deleteOldDonation"
+        type="button"
+        class="btn btn-outline-dark w-25 mt-4 d-grid gap-2 col-6 mx-auto mb-3">
+        Delete Old Donation
+</button>
 
 <div class="d-flex justify-content-between pb-2 mb-2">
     <input 
