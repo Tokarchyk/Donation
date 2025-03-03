@@ -37,7 +37,7 @@ class DonationController extends Controller
             $sortOrder = 'desc';
         }
         $query->orderBy($sortColumn, $sortOrder);
-        $donations = $query->paginate(5);
+        $donations = $query->paginate(10);
         $results = $this->donationService->getWidget();
 
         return response()->json($donations);
