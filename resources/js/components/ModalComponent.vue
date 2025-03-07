@@ -104,8 +104,9 @@ const submitForm = async () => {
         emit('success-message', response.data.message);
         closeModal();
     } catch (error) {
-        if (error.response && error.response.status === 422) {
+        if (error.response && error.response.status === 404) {
             errors.value = error.response.data.errors;
+            alert(error.response.data.message);
         } else {
             console.error('Error saving data:', error);
         }
