@@ -15,7 +15,7 @@ class DonationService
 
     public function getWidget()
     {
-        $topDonation = $this->donationRepo->getTopDonations();
+        $topDonation = $this->donationRepo->getTopDonation();
 
         $totalAmountDonation = Donation::sum('amount');
 
@@ -31,8 +31,8 @@ class DonationService
             $values = [
                 [
                     'title' => 'Top Donator',
-                    'amount' => $topDonation['amount'],
-                    'email' => $topDonation['email'],
+                    'amount' => $topDonation['amount'] ?? 0,
+                    'email' => $topDonation['email'] ?? 'N/A',
                 ],
                 [
                     'title' => 'Last Month Amount',

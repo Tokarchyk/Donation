@@ -23,8 +23,8 @@ class DonationFactory extends Factory
                 'email' => fake()->unique()->safeEmail(),
                 'amount' => fake()->randomNumber(4, false),
                 'message' => fake()->text(),
-                'date' => fake()->dateTime(),
-                'user_id' => User::get()->random(),
+                'date' => fake()->date('Y-m-d'),
+                'user_id' => User::inRandomOrder()->first()->id ?? User::factory()->create()->id,
         ];
     }
 }
