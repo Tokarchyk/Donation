@@ -52,11 +52,19 @@ class DonationController extends Controller
 
     public function destroy(int $id)
     {
-        $donation = Donation::find($id);
-        $donation->delete();
-        return response()->json([
-            "status" => true
-        ], 204);
+        try {
+            $donation = Donation::findOrFail($id);
+            $donation->delete();
+
+            return response()->json([
+                'message' => 'Donation deleted successfully',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to delete donation',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function store(DonationRequest $request)
@@ -82,8 +90,8 @@ class DonationController extends Controller
 
             return response()->json([
                 'message' => 'Donation saved successfully',
-                'data' => $donation
-            ]);
+                'data' => $donation,
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Failed to save donation',
@@ -92,7 +100,7 @@ class DonationController extends Controller
         }
     }
 
-    public function deleteOldDonations(Request $request)
+    public function deleteOldDonations(Request $request) // JOB method
     {
         $targetDate = $request->input('date');
 

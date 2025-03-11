@@ -29,7 +29,6 @@ class DeleteOldDonationsCommand extends Command
      */
     public function handle()
     {
-
         $date = $this->argument('date');
 
         $olderThanMonth = Carbon::now()->subDays($date);

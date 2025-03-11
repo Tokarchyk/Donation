@@ -94,7 +94,6 @@ const handleSaved = () => {
 
 const deleteOldDonation = async () => {
     const response = await axios.get(`/api/donations/job`)
-    console.log(response);
 }
 
 onMounted(() => {

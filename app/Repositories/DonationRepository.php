@@ -7,7 +7,7 @@ use App\Services\DonationService;
 
 class DonationRepository
 {
-    public function getTopDonations()
+    public function getTopDonation()
     {
         $topDonation = Donation::orderByDesc('amount')->first();
 

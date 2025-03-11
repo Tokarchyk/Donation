@@ -67,16 +67,16 @@ class DonationController extends Controller
 
         $chartData = $resultsDate
         ->groupBy(function ($result, $key) {
-            return \Carbon\Carbon::parse($result->date)->format('y-M-d');
+            return \Carbon\Carbon::parse($result->date)->format('Y-m-d');
         })
         ->map(function ($result) {
             return ($result->sum('amount'));
         });
-
+        
+        $newArray = [];
         foreach ($chartData as $date => $totalAmount) {
             $newArray[] = [$date, $totalAmount];
         }
-
         $chartDataAmount = [
             ['Year', 'Amount'],
             ...$newArray,
