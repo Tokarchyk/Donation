@@ -72,7 +72,7 @@ class DonationController extends Controller
         ->map(function ($result) {
             return ($result->sum('amount'));
         });
-        
+
         $newArray = [];
         foreach ($chartData as $date => $totalAmount) {
             $newArray[] = [$date, $totalAmount];
